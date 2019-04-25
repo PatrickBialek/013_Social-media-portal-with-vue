@@ -2,7 +2,7 @@
   <div class="nav">
     <div class="nav__content-box">
       <div class="nav__logo-box">
-        <a href class="nav__logo">GeoApp</a>
+        <a href class="nav__logo">Social</a>
       </div>
       <nav class="nav__nav-content">
         <ul class="nav__items-list">

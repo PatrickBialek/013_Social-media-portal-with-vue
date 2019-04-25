@@ -1,10 +1,10 @@
 <template>
-  <div class="map"></div>
+  <div class="homepage"></div>
 </template>
 
 <script>
 export default {
-  name: "GMap",
+  name: "Homepage",
   data() {
     return {};
   }

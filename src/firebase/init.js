@@ -1,5 +1,5 @@
  import firebase from "firebase";
- import firebase from "firebase/firestore";
+ import firestore from "firebase/firestore";
 
  // Initialize Firebase
  const config = {
