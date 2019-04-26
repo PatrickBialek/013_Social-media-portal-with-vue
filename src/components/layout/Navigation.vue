@@ -10,7 +10,7 @@
             <router-link :to="{name: 'Signup'}">Signup</router-link>
           </li>
           <li class="nav__single-item">
-            <router-link to="/login">Login</router-link>
+            <router-link to="/goodbay">Login</router-link>
           </li>
           <li class="nav__single-item">
             <a @click="logout">Logout</a>
