@@ -54,6 +54,17 @@ export default {
             firebase
               .auth()
               .createUserWithEmailAndPassword(this.email, this.password)
+              .then(cred => {
+                ref.set({
+                  nick: this.nick,
+                  user_id: cred.user.uid
+                });
+              })
+              .then(() => {
+                this.$router.push({
+                  name: "Homepage"
+                });
+              })
               .catch(err => {
                 console.log(err);
                 this.feedback = err.message;
