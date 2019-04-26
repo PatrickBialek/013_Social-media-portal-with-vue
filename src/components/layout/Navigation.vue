@@ -7,10 +7,13 @@
       <nav class="nav__nav-content">
         <ul class="nav__items-list">
           <li class="nav__single-item">
-            <a href>Singup</a>
+            <router-link :to="{name: 'Signup'}">Signup</router-link>
           </li>
           <li class="nav__single-item">
-            <a href>Login</a>
+            <router-link to="/login">Login</router-link>
+          </li>
+          <li class="nav__single-item">
+            <a @click="logout">Logout</a>
           </li>
         </ul>
       </nav>
@@ -19,10 +22,24 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "Navigation",
   date() {
     return {};
+  },
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({
+            name: "Signup"
+          });
+        });
+    }
   }
 };
 </script>
@@ -79,6 +96,7 @@ export default {
   &__single-item {
     margin: 0 10px;
     padding: 5px;
+    cursor: pointer;
 
     &:last-child {
       margin-right: 0px;

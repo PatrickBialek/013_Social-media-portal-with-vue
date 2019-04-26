@@ -45,7 +45,6 @@ export default {
           remove: /[$*_+~.()'"!\-:@]/g,
           lower: true
         });
-
         let ref = db.collection("users").doc(this.slug);
         ref.get().then(doc => {
           if (doc.exists) {
