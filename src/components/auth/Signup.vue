@@ -61,7 +61,7 @@ export default {
               })
               .then(() => {
                 this.$router.push({
-                  name: "Homepage"
+                  name: "wall"
                 });
               })
               .catch(err => {

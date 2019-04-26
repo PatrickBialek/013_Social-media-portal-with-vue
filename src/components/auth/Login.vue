@@ -18,10 +18,36 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      email: null,
+      password: null,
+      feedback: null
+    };
+  },
+  methods: {
+    login() {
+      if (this.email && this.password) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(cred => {
+            console.log(cred.user);
+            this.$router.push({ name: "Wall" });
+          })
+          .catch(err => {
+            console.log(err);
+            this.feedback = err;
+          });
+        this.feedback = null;
+      } else {
+        this.feedback = "You have to fill all fields";
+      }
+    }
   }
 };
 </script>

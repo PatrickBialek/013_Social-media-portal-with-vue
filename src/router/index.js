@@ -4,6 +4,7 @@ import Homepage from "@/components/home/Homepage";
 import Signup from "@/components/auth/Signup";
 import Login from "@/components/auth/Login";
 import Goodbay from "@/components/auth/Goodbay";
+import Wall from "@/components/home/Wall";
 
 Vue.use(Router);
 
@@ -25,8 +26,13 @@ export default new Router({
     },
     {
       path: "/goodbay",
-      name: "Goobay",
+      name: "Goodbay",
       component: Goodbay
+    },
+    {
+      path: "/wall",
+      name: "Wall",
+      component: Wall
     }
   ]
 });

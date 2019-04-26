@@ -2,7 +2,7 @@
   <div class="nav">
     <div class="nav__content-box">
       <div class="nav__logo-box">
-        <a href class="nav__logo">Social</a>
+        <router-link class="nav__logo" :to="{name: 'Homepage'}">MyApp</router-link>
       </div>
       <nav class="nav__nav-content">
         <ul class="nav__items-list">
@@ -10,7 +10,7 @@
             <router-link :to="{name: 'Signup'}">Signup</router-link>
           </li>
           <li class="nav__single-item">
-            <router-link to="/goodbay">Login</router-link>
+            <router-link :to="{name: 'Login'}">Login</router-link>
           </li>
           <li class="nav__single-item">
             <a @click="logout">Logout</a>
@@ -36,7 +36,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.push({
-            name: "Signup"
+            name: "Goodbay"
           });
         });
     }
