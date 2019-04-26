@@ -4,15 +4,18 @@ import Homepage from "@/components/home/Homepage";
 import Signup from "@/components/auth/Signup";
 import Login from "@/components/auth/Login";
 import Goodbay from "@/components/auth/Goodbay";
-import Wall from "@/components/home/Wall";
+import firebase from "firebase";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [{
       path: "/",
       name: "Homepage",
-      component: Homepage
+      component: Homepage,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/signup",
@@ -28,11 +31,24 @@ export default new Router({
       path: "/goodbay",
       name: "Goodbay",
       component: Goodbay
-    },
-    {
-      path: "/wall",
-      name: "Wall",
-      component: Wall
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(rec => rec.meta.requiresAuth)) {
+    let user = firebase.auth().currentUser;
+
+    if (user) {
+      next()
+    } else {
+      next({
+        name: "Login"
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router;

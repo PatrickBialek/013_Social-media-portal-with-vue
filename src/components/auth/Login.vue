@@ -37,7 +37,7 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then(cred => {
             console.log(cred.user);
-            this.$router.push({ name: "Wall" });
+            this.$router.push({ name: "Homepage" });
           })
           .catch(err => {
             console.log(err);
