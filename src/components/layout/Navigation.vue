@@ -6,11 +6,14 @@
       </div>
       <nav class="nav__nav-content">
         <ul class="nav__items-list">
-          <li class="nav__single-item">
+          <li class="nav__single-item" v-if="!user">
             <router-link :to="{name: 'Signup'}">Signup</router-link>
           </li>
-          <li class="nav__single-item">
+          <li class="nav__single-item" v-if="!user">
             <router-link :to="{name: 'Login'}">Login</router-link>
+          </li>
+          <li class="nav__user-email" v-if="user">
+            <a>{{ user.email }}</a>
           </li>
           <li class="nav__single-item">
             <a @click="logout">Logout</a>
@@ -26,8 +29,10 @@ import firebase from "firebase";
 
 export default {
   name: "Navigation",
-  date() {
-    return {};
+  data() {
+    return {
+      user: null
+    };
   },
   methods: {
     logout() {
@@ -40,6 +45,14 @@ export default {
           });
         });
     }
+  },
+  created() {
+    let user = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+      }
+    });
   }
 };
 </script>
@@ -93,14 +106,10 @@ export default {
     align-items: center;
   }
 
+  &__user-email,
   &__single-item {
     margin: 0 10px;
     padding: 5px;
-    cursor: pointer;
-
-    &:last-child {
-      margin-right: 0px;
-    }
 
     & a {
       font-weight: 500;
@@ -108,6 +117,21 @@ export default {
       font-family: Rubik, Arial, Helvetica, sans-serif;
       text-decoration: none;
       margin-top: 6px;
+    }
+  }
+
+  &__user-email {
+    margin-bottom: 5px;
+  }
+
+  &__single-item {
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    & a {
       transition: color 0.3s ease-in-out;
 
       &::after {
