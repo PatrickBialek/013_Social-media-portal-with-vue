@@ -5,6 +5,7 @@ import Signup from "@/components/auth/Signup";
 import Login from "@/components/auth/Login";
 import Goodbay from "@/components/auth/Goodbay";
 import firebase from "firebase";
+import Profile from "@/components"
 
 Vue.use(Router);
 
