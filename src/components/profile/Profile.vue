@@ -1,6 +1,6 @@
 <template>
-  <div class="signup">
-    <div v-if="profile" class="signup__content">{{ profile.nick }}'s wall</div>
+  <div class="user">
+    <div v-if="profile" class="user__content">{{ title }}'s wall</div>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   name: "Profile",
   data() {
     return {
-      profile: null
+      profile: null,
+      title: null
     };
   },
   created() {
@@ -21,6 +22,11 @@ export default {
       .get()
       .then(user => {
         this.profile = user.data();
+      })
+      .then(() => {
+        this.title =
+          this.profile.nick.charAt(0).toUpperCase() +
+          this.profile.nick.slice(1);
       });
   }
 };

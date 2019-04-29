@@ -12,8 +12,7 @@ import Profile from "@/components/profile/Profile";
 Vue.use(Router);
 
 const router = new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "Homepage",
       component: Homepage,
