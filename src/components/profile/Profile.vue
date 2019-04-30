@@ -6,7 +6,14 @@
         <h3>User references:</h3>
         <form class="user__form" @submit.prevent="addReference">
           <label class="user__label" for="add-reference"></label>
-          <input class="user__text-field" type="text" name="add-reference" v-model="newReference">
+          <textarea
+            class="user__text-field"
+            type="text"
+            name="add-reference"
+            id="add-reference-textarea"
+            v-model="newReference"
+          ></textarea>
+          <button class="user__btn">Add reference</button>
           <p class="user__error" v-if="feedback">{{ feedback }}</p>
         </form>
         <div class="user__references-box"></div>
@@ -59,6 +66,8 @@ export default {
   methods: {
     addReference() {
       if (this.newReference) {
+        const textarea = document.querySelector("#add-reference-textarea");
+
         this.feedback = null;
         db.collection("comments")
           .add({
@@ -69,6 +78,12 @@ export default {
           })
           .then(() => {
             this.newReference;
+          })
+          .then(() => {
+            textarea.value = null;
+          })
+          .error(err => {
+            this.feedback = err;
           });
       } else {
         this.feedback = "You have to fill reference field!";
