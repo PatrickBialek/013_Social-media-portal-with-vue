@@ -17,6 +17,7 @@
 
 <script>
 import db from "@/firebase/init";
+import firebase from "firebase";
 
 export default {
   name: "Profile",
@@ -25,11 +26,24 @@ export default {
       profile: null,
       title: null,
       newReference: null,
-      feedback: null
+      feedback: null,
+      user: null
     };
   },
   created() {
+    // reference to users storage
     let ref = db.collection("users");
+
+    // get current user
+    ref
+      .where("user_id", "==", firebase.auth().currentUser.uid)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          (this.user = doc.data()), (this.user.id = doc.id);
+        });
+      });
+
     ref
       .doc(this.$route.params.id)
       .get()
@@ -43,7 +57,23 @@ export default {
       });
   },
   methods: {
-    addReference() {}
+    addReference() {
+      if (this.newReference) {
+        this.feedback = null;
+        db.collection("comments")
+          .add({
+            to: this.$route.params.id,
+            from: this.user.id,
+            content: this.newReference,
+            time: Date.now()
+          })
+          .then(() => {
+            this.newReference;
+          });
+      } else {
+        this.feedback = "You have to fill reference field!";
+      }
+    }
   }
 };
 </script>
