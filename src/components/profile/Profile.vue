@@ -17,6 +17,12 @@
         </form>
         <div class="user__references-box">
           <h3>User references:</h3>
+          <ul>
+            <li v-for="(comment, index) in comments" :key="index">
+              <div>{{ comment.from}}</div>
+              <div>{{ comment.content }}</div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -62,6 +68,19 @@ export default {
         this.title =
           this.profile.nick.charAt(0).toUpperCase() +
           this.profile.nick.slice(1);
+      });
+
+    db.collection("comments")
+      .where("to", "==", this.$route.params.id)
+      .onSnapshot(snapshot => {
+        snapshot.docChanges.forEach(change => {
+          if ((change.type = "added")) {
+            this.comments.unshift({
+              from: change.doc.data().from,
+              content: change.doc.data().content
+            });
+          }
+        });
       });
   },
   methods: {
